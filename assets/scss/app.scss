@@ -12,3 +12,20 @@ body {
 ul li{
   cursor:pointer;
 }
+
+header nav a{
+    color:#233dcb;
+    text-decoration: none;
+    font-weight: bold;
+    padding:10px;
+}
+
+.main header nav{
+  width: 75%;
+  margin:32px auto;
+}
+
+header nav a:hover,
+header nav a:active{
+  color:#41abf2;
+}
