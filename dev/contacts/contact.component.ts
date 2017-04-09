@@ -4,15 +4,37 @@ import {Component} from 'angular2/core';
      selector:'contact',
      template:` 
         <div>
-             firstName: <input [(ngModel)]='contact.firstName' type='text'><br/> 
-             lastName: <input [(ngModel)]='contact.lastName' type='text'>
-        </div><br/>
-         <div>
-             Phone Number:{{contact.phone}}<br>
-             E-mail: {{contact.email}}
-         </div>
+            <div>
+                <label for='first-name'>First Name:</label>
+                <input [(ngModel)]='contact.firstName' type='text' id='first-name'><br/> 
+            </div>
+            <div>
+                <label for='last-name'>Last Name:</label>
+                <input [(ngModel)]='contact.lastName' type='text' id='last-name'><br/> 
+            </div>
+            <div>
+                <label for='phone'>Phone number:</label>
+                <input [(ngModel)]='contact.phone' type='text' id='phone'><br/> 
+            </div>
+            <div>
+                <label for='email'>E-Mail:</label>
+                <input [(ngModel)]='contact.email' type='text' id='email'><br/> 
+            </div>
+            
+        </div>
+        <br/> 
      `,
-     inputs:['contact']
+     inputs:['contact'],
+     styles:[`
+         label {
+             display:inline-block;
+             width:140px;
+         }
+
+         input{
+             width:250px;
+         }
+     `]
 })
 
 export class ContactComponent{
