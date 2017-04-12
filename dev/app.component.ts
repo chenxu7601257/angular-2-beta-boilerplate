@@ -25,7 +25,10 @@ import {ROUTER_DIRECTIVES} from 'angular2/router';
 
 @RouteConfig([
    {path:'/contacts',name:'Contacts',component:ContactListComponent,useAsDefault:true},
-   {path:'/newcontact',name:'NewContact',component:NewContactComponent}
+   {path:'/newcontact',name:'NewContact',component:NewContactComponent},
+
+   //下面的方式可以，但是没有带？好的地址
+   //{path:'/newcontact/:lastName',name:'NewContactFromContact',component:NewContactComponent}
 ])
 
 export class AppComponent {

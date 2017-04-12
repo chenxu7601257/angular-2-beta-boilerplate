@@ -2,7 +2,7 @@ import {Component, OnInit} from 'angular2/core';
 import {ContactComponent} from './contact.component';
 import {ContactService} from './contact.service';
 import { Contact } from './contact';
-import { Router, ROUTER_DIRECTIVES } from "angular2/router";
+import { Router, ROUTER_DIRECTIVES, RouteParams } from "angular2/router";
 
 @Component({
     selector:'new-contact',
@@ -14,7 +14,7 @@ import { Router, ROUTER_DIRECTIVES } from "angular2/router";
             </div>
             <div>
                 <label for='last-name'>Last Name:</label>
-                <input type='text' id='last-name' #lastname><br/> 
+                <input type='text' id='last-name' #lastname value={{passLastName}}><br/> 
             </div>
             <div>
                 <label for='phone'>Phone number:</label>
@@ -42,9 +42,18 @@ import { Router, ROUTER_DIRECTIVES } from "angular2/router";
     providers:[ContactService,ROUTER_DIRECTIVES]
 })
 
-export class NewContactComponent {
-         
-    constructor(private _contactService:ContactService,private _router:Router){
+export class NewContactComponent implements OnInit {
+       
+    public passLastName=null;
+    
+    ngOnInit() {
+        this.passLastName=this._routerParams.get('lastName');
+    }
+
+
+    constructor(private _contactService:ContactService,private _router:Router,
+    private _routerParams:RouteParams
+    ){
 
     }
 

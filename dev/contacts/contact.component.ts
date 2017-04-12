@@ -1,4 +1,6 @@
-import {Component} from 'angular2/core';
+import { Component } from 'angular2/core';
+import { Router } from "angular2/router";
+import { Contact } from './contact';
 
 @Component({
      selector:'contact',
@@ -20,7 +22,7 @@ import {Component} from 'angular2/core';
                 <label for='email'>E-Mail:</label>
                 <input [(ngModel)]='contact.email' type='text' id='email'><br/> 
             </div>
-            
+            <button (click)='onCreateNew()'>Create new contact from this</button>
         </div>
         <br/> 
      `,
@@ -38,5 +40,13 @@ import {Component} from 'angular2/core';
 })
 
 export class ContactComponent{
-     public contact={};
+     public contact:Contact=null;
+
+    constructor(private _router:Router){
+        
+    }
+
+     onCreateNew(){
+         this._router.navigate(['NewContact',{lastName:this.contact.lastName}]);
+     }
 }
