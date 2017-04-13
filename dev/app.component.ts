@@ -27,7 +27,7 @@ import {ROUTER_DIRECTIVES} from 'angular2/router';
    {path:'/contacts',name:'Contacts',component:ContactListComponent,useAsDefault:true},
    {path:'/newcontact',name:'NewContact',component:NewContactComponent},
 
-   //下面的方式可以，但是没有带？好的地址
+   //下面的方式可以，但是没有带？好的地址s
    //{path:'/newcontact/:lastName',name:'NewContactFromContact',component:NewContactComponent}
 ])
 
