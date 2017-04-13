@@ -6,42 +6,51 @@ import { Router, ROUTER_DIRECTIVES, RouteParams } from "angular2/router";
 import { ControlGroup, FormBuilder } from 'angular2/common';
 import { Validators } from "angular2/src/common/forms";
 
+//下面的这种方式也可以双向绑定form 通过ngModel的形式
+
 @Component({
-    selector:'new-contact',
+    selector:'new-contact-backup',
     template:`
-    <form [ngFormModel]='myForm' (ngSubmit)='onSubmit(myForm.value)'>
+    <form #myForm='ngForm' (ngSubmit)='onSubmit()'>
        <div>
             <div>
                 <label for='first-name'>First Name:</label>
                 <input type='text' id='first-name'
-                  [ngFormControl]='myForm.controls["firstName"]'
-                  #firstName='ngForm'
+                    ngControl='firstName'
+                    [(ngModel)]='newContact.firstName'
+                    required
+                    #firstName='ngForm'  
                 >
-                <span *ngIf='!myForm.controls["firstName"].valid'>Not valid</span>
-                <span *ngIf='!firstName.valid'>ngForm Not valid</span>
+                <span *ngIf='!firstName.valid'>Not valid</span>
                 <br/> 
             </div>
             <div>
                 <label for='last-name'>Last Name:</label>
-                <input type='text' id='last-name'   
-                [ngFormControl]='myForm.controls["lastName"]'
+                <input type='text' id='last-name'
+                     ngControl='lastName'
+                     [(ngModel)]='newContact.lastName'
+                    required
                 ><br/> 
             </div>
             <div>
                 <label for='phone'>Phone number:</label>
-                <input type='text' id='phone'   
-                [ngFormControl]='myForm.controls["phone"]'
+                <input type='text' id='phone'
+                    ngControl='phone'
+                     [(ngModel)]='newContact.phone'
+                    required
                 ><br/> 
             </div>
             <div>
                 <label for='email'>E-Mail:</label>
-                <input type='text' id='email'    
-                [ngFormControl]='myForm.controls["email"]'
+                <input type='text' id='email'
+                    ngControl='email'
+                     [(ngModel)]='newContact.email'
+                    required
                 ><br/> 
             </div> 
         </div>
         <br/> 
-        <button type='submit' [disabled]='!myForm.valid'>Create Contact</button>
+        <button [disabled]='!myForm.form.valid' (click)="onAddContact(firstname.value,lastname.value,phone.value,email.value)">Create Contact</button>
      </form>
     `,
     styles:[
@@ -63,9 +72,28 @@ import { Validators } from "angular2/src/common/forms";
 })
 
 export class NewContactComponent implements OnInit {
-        
+       
+    //public passLastName=null;
+    newContact:Contact;
     myForm:ControlGroup;
-     
+    
+    ngOnInit() {
+         this.newContact={
+                firstName:'',
+                lastName:this._routerParams.get('lastName'),
+                phone:'',
+                email:''
+         };
+
+        //  this.myForm=this._formBuilder.group({
+        //      'firstName':['',Validators.required],
+        //      'lastName':['',Validators.required],
+        //      'phone':['',Validators.required],
+        //      'email':['',Validators.required]
+        //  });
+    }
+
+
     constructor(private _contactService:ContactService,private _router:Router,
     private _routerParams:RouteParams, private _formBuilder:FormBuilder){
 
@@ -82,20 +110,10 @@ export class NewContactComponent implements OnInit {
          this._router.navigate(['Contacts']);
      }
 
-     ngOnInit() {
-             
-             this.myForm=this._formBuilder.group({
-                 'firstName':['',Validators.required],
-                 'lastName':[this._routerParams.get('lastName'),Validators.required],
-                 'phone':['',Validators.required],
-                 'email':['',Validators.required]
-             });
-        }
-
-
-     onSubmit(value){
-        this._contactService.insertContact(value);
-
+     onSubmit(){
+        this._contactService.insertContact(
+            this.newContact
+        );
         this._router.navigate(['Contacts']);
      }
 }
