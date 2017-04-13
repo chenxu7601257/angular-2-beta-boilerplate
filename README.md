@@ -1,4 +1,4 @@
-# Angular 2 Beta Boilerplate
+# Angular 2 Jacob demo is from Beta Boilerplate
 
 ## Description
 This repository acts as a very simple Angular 2 Beta Boilerplate with which you can get started developing Angular 2 immediately.
