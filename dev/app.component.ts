@@ -19,6 +19,21 @@ import { HTTPTestComponent } from "./http-test.component";
         <div class="main">
             <router-outlet></router-outlet>
             <http-test></http-test>
+            <div class='pipes'>
+                <h2>Date Pie</h2>
+                <div>
+                    {{ date | date:'fullDate'}}
+                </div>
+                <div>
+                    {{4.5665678|number:'1.2-2'}}
+                </div>
+                <div>
+                    {{15.99 | currency:'EUR':true:'1.4-4'}}
+                </div>
+                <div>
+                    {{randomData | async }}
+                </div>
+            </div>
         </div>
         `,
     directives:[ContactListComponent,ROUTER_DIRECTIVES,HTTPTestComponent],
@@ -34,5 +49,8 @@ import { HTTPTestComponent } from "./http-test.component";
 ])
 
 export class AppComponent {
-   
+      date=new Date();
+      randomData=new Promise((resolve,reject)=>{
+          setTimeout(()=>resolve('Random data!'),1000);
+      })
 }
